@@ -19,6 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [[[BUGCore sharedCore] envManager] setUserEnvParams:@{@"API环境": @"生产环境"}];
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://www.kootv.com/"]]];
     // Do any additional setup after loading the view, typically from a nib.
 }
