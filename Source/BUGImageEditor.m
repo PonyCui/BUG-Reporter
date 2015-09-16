@@ -7,14 +7,33 @@
 //
 
 #import "BUGImageEditor.h"
+#import "BUGImagePainterView.h"
 
-@interface BUGImageCollectionViewCell : UICollectionViewCell
+@protocol BUGImageCollectionViewCellDelegate <NSObject>
 
-@property (nonatomic, strong) UIImageView *imageView;
+- (void)cellDidEditedImage:(UIImage *)image cellIndex:(NSUInteger)cellIndex;
 
 @end
 
-@interface BUGImageEditor ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface BUGImageCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, weak) id<BUGImageCollectionViewCellDelegate> delegate;
+
+@property (nonatomic, strong) UIImageView *imageView;
+
+@property (nonatomic, strong) UIToolbar *toolBar;
+
+@property (nonatomic, strong) NSArray *toolBarNormalItems;
+
+@property (nonatomic, strong) NSArray *toolBarEditItems;
+
+@property (nonatomic, strong) BUGImagePainterView *painterView;
+
+- (void)updatePainterViewWithImageSize:(CGSize)imageSize;
+
+@end
+
+@interface BUGImageEditor ()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate, BUGImageCollectionViewCellDelegate>
 
 @property (nonatomic, strong) NSArray<NSData *> *images;
 
@@ -51,7 +70,10 @@
     BUGImageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier
                                                                                  forIndexPath:indexPath];
     if (indexPath.row < [self.images count]) {
+        cell.delegate = self;
+        cell.tag = indexPath.row;
         cell.imageView.image = [UIImage imageWithData:self.images[indexPath.row]];
+        [cell updatePainterViewWithImageSize:cell.imageView.image.size];
     }
     return cell;
 }
@@ -79,6 +101,18 @@
                                               animated:NO];
     [picker dismissViewControllerAnimated:YES completion:nil];
     [self.delegate imageEditorDidChangedImages:self.images];
+}
+
+#pragma mark - Edit
+
+- (void)cellDidEditedImage:(UIImage *)image cellIndex:(NSUInteger)cellIndex {
+    if (cellIndex < [self.images count]) {
+        NSMutableArray *images = [self.images mutableCopy];
+        [images setObject:UIImageJPEGRepresentation(image, 1.0) atIndexedSubscript:cellIndex];
+        self.images = images;
+        [self.editorCollectionView reloadData];
+        [self.delegate imageEditorDidChangedImages:self.images];
+    }
 }
 
 #pragma mark - Getter
@@ -130,10 +164,57 @@
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.imageView.frame = self.bounds;
+        CGRect frame = self.bounds;
+        frame.size.height -= 44.0;
+        self.imageView.frame = frame;
+        self.toolBar.frame = CGRectMake(0, self.bounds.size.height - 44.0, self.bounds.size.width, 44.0);
         [self addSubview:self.imageView];
+        [self addSubview:self.toolBar];
     }
     return self;
+}
+
+- (void)handleEditButtonTapped {
+    [self.imageView addSubview:self.painterView];
+    self.toolBar.items = self.toolBarEditItems;
+}
+
+- (void)handleCancelButtonTapped {
+    [self.painterView reset];
+    [self.painterView removeFromSuperview];
+    self.toolBar.items = self.toolBarNormalItems;
+}
+
+- (void)handleSaveButtonTapped {
+    UIImage *image = [self.painterView mergeWithImage:self.imageView.image];
+    [self.delegate cellDidEditedImage:image cellIndex:self.tag];
+    [self.painterView reset];
+    [self.painterView removeFromSuperview];
+    self.toolBar.items = self.toolBarNormalItems;
+}
+
+- (void)updatePainterViewWithImageSize:(CGSize)imageSize {
+    self.painterView.frame = [self imageRectWithSize:imageSize];
+}
+
+- (CGRect)imageRectWithSize:(CGSize)size {
+    if (size.width > size.height) {
+        CGRect rect = CGRectZero;
+        rect.size.height = CGRectGetWidth(self.imageView.bounds) * size.height / size.width;
+        rect.origin.y = (CGRectGetHeight(self.imageView.bounds) - rect.size.height) / 2.0;
+        rect.size.width = CGRectGetWidth(self.imageView.bounds);
+        return rect;
+    }
+    else if (size.width < size.height) {
+        CGRect rect = CGRectZero;
+        rect.size.width = CGRectGetHeight(self.imageView.bounds) * size.width / size.height;
+        rect.origin.x = (CGRectGetWidth(self.imageView.bounds) - rect.size.width) / 2.0;
+        rect.size.height = CGRectGetHeight(self.imageView.bounds);
+        return rect;
+    }
+    else {
+        return self.imageView.bounds;
+    }
 }
 
 - (UIImageView *)imageView {
@@ -141,8 +222,46 @@
         _imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
         _imageView.contentMode = UIViewContentModeScaleAspectFit;
         _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _imageView.userInteractionEnabled = YES;
     }
     return _imageView;
+}
+
+- (UIToolbar *)toolBar {
+    if (_toolBar == nil) {
+        _toolBar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 0, 44.0)];
+        _toolBar.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        [_toolBar setItems:self.toolBarNormalItems];
+    }
+    return _toolBar;
+}
+
+- (NSArray *)toolBarNormalItems {
+    if (_toolBarNormalItems == nil) {
+        UIBarButtonItem *leftSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(handleEditButtonTapped)];
+        UIBarButtonItem *rightSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        _toolBarNormalItems = @[leftSpaceItem, editItem, rightSpaceItem];
+    }
+    return _toolBarNormalItems;
+}
+
+- (NSArray *)toolBarEditItems {
+    if (_toolBarEditItems == nil) {
+        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"放弃" style:UIBarButtonItemStylePlain target:self action:@selector(handleCancelButtonTapped)];
+        UIBarButtonItem *middleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *saveItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(handleSaveButtonTapped)];
+        _toolBarEditItems = @[cancelItem, middleSpaceItem, saveItem];
+    }
+    return _toolBarEditItems;
+}
+
+- (BUGImagePainterView *)painterView {
+    if (_painterView == nil) {
+        _painterView = [[BUGImagePainterView alloc] initWithFrame:CGRectZero];
+        _painterView.userInteractionEnabled = YES;
+    }
+    return _painterView;
 }
 
 @end

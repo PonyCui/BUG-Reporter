@@ -18,6 +18,7 @@
 		63E108471BA92084001FBE57 /* BUGAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108461BA92084001FBE57 /* BUGAccount.m */; settings = {ASSET_TAGS = (); }; };
 		63E1084A1BA92B08001FBE57 /* BUGReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108491BA92B08001FBE57 /* BUGReporter.m */; settings = {ASSET_TAGS = (); }; };
 		63E1084D1BA96C6E001FBE57 /* BUGImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */; settings = {ASSET_TAGS = (); }; };
+		F0957FB81BA9B1F800F42737 /* BUGImagePainterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0957FB71BA9B1F800F42737 /* BUGImagePainterView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,8 @@
 		63E108491BA92B08001FBE57 /* BUGReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGReporter.m; sourceTree = "<group>"; };
 		63E1084B1BA96C6E001FBE57 /* BUGImageEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUGImageEditor.h; sourceTree = "<group>"; };
 		63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGImageEditor.m; sourceTree = "<group>"; };
+		F0957FB61BA9B1F800F42737 /* BUGImagePainterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUGImagePainterView.h; sourceTree = "<group>"; };
+		F0957FB71BA9B1F800F42737 /* BUGImagePainterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGImagePainterView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +138,8 @@
 				63E108491BA92B08001FBE57 /* BUGReporter.m */,
 				63E1084B1BA96C6E001FBE57 /* BUGImageEditor.h */,
 				63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */,
+				F0957FB61BA9B1F800F42737 /* BUGImagePainterView.h */,
+				F0957FB71BA9B1F800F42737 /* BUGImagePainterView.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 				63E1084A1BA92B08001FBE57 /* BUGReporter.m in Sources */,
 				63E1081E1BA91E7C001FBE57 /* main.m in Sources */,
 				63E108441BA91EC0001FBE57 /* BUGCore.m in Sources */,
+				F0957FB81BA9B1F800F42737 /* BUGImagePainterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +441,7 @@
 				63E1083D1BA91E7C001FBE57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63E1083E1BA91E7C001FBE57 /* Build configuration list for PBXNativeTarget "BUG ReporterUITests" */ = {
 			isa = XCConfigurationList;
@@ -443,6 +450,7 @@
 				63E108401BA91E7C001FBE57 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
