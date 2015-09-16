@@ -9,7 +9,7 @@
 #import "BUGReporter.h"
 #import "BUGCore.h"
 
-@interface BUGReporter ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate>
+@interface BUGReporter ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, BUGImageEditorDelegate>
 
 @property (nullable, nonatomic, strong) UIImage *lastScreenShot;
 
@@ -86,6 +86,7 @@
     [self.reporterTableView reloadData];
     UINavigationController *navigationController =
     [[UINavigationController alloc] initWithRootViewController:self.reporterViewController];
+    navigationController.navigationBar.translucent = NO;
     [[[[UIApplication sharedApplication] keyWindow] rootViewController]
      presentViewController:navigationController animated:YES completion:^{
          
@@ -233,6 +234,12 @@
         [[self.issueTitleAlertView textFieldAtIndex:0] setText:self.issueTitle];
         [self.issueTitleAlertView show];
     }
+    else if (indexPath.section == 1 && indexPath.row == 1) {
+        [[[BUGCore sharedCore] imageEditor] setDelegate:self];
+        [[[BUGCore sharedCore] imageEditor]
+         showEditorViewControllerWithImages:self.issueImages
+         navigationController:self.reporterViewController.navigationController];
+    }
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -264,6 +271,14 @@
                                           withRowAnimation:UITableViewRowAnimationNone];
         }
     }
+}
+
+#pragma mark - BUGImageEditorDelegate
+
+- (void)imageEditorDidChangedImages:(NSArray<NSData *> *)images {
+    self.issueImages = images;
+    [self.reporterTableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:1 inSection:1]]
+                                  withRowAnimation:UITableViewRowAnimationNone];
 }
 
 #pragma mark - Getter

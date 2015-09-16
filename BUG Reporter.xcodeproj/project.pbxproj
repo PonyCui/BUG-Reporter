@@ -17,6 +17,7 @@
 		63E108441BA91EC0001FBE57 /* BUGCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108431BA91EC0001FBE57 /* BUGCore.m */; settings = {ASSET_TAGS = (); }; };
 		63E108471BA92084001FBE57 /* BUGAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108461BA92084001FBE57 /* BUGAccount.m */; settings = {ASSET_TAGS = (); }; };
 		63E1084A1BA92B08001FBE57 /* BUGReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108491BA92B08001FBE57 /* BUGReporter.m */; settings = {ASSET_TAGS = (); }; };
+		63E1084D1BA96C6E001FBE57 /* BUGImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,8 @@
 		63E108461BA92084001FBE57 /* BUGAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGAccount.m; sourceTree = "<group>"; };
 		63E108481BA92B08001FBE57 /* BUGReporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUGReporter.h; sourceTree = "<group>"; };
 		63E108491BA92B08001FBE57 /* BUGReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGReporter.m; sourceTree = "<group>"; };
+		63E1084B1BA96C6E001FBE57 /* BUGImageEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUGImageEditor.h; sourceTree = "<group>"; };
+		63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGImageEditor.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +133,8 @@
 				63E108461BA92084001FBE57 /* BUGAccount.m */,
 				63E108481BA92B08001FBE57 /* BUGReporter.h */,
 				63E108491BA92B08001FBE57 /* BUGReporter.m */,
+				63E1084B1BA96C6E001FBE57 /* BUGImageEditor.h */,
+				63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -235,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63E1084D1BA96C6E001FBE57 /* BUGImageEditor.m in Sources */,
 				63E108241BA91E7C001FBE57 /* ViewController.m in Sources */,
 				63E108471BA92084001FBE57 /* BUGAccount.m in Sources */,
 				63E108211BA91E7C001FBE57 /* AppDelegate.m in Sources */,

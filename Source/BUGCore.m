@@ -9,12 +9,15 @@
 #import "BUGCore.h"
 #import "BUGAccount.h"
 #import "BUGReporter.h"
+#import "BUGImageEditor.h"
 
 @interface BUGCore ()
 
 @property (nonatomic, strong) BUGAccount *account;
 
 @property (nonatomic, strong) BUGReporter *reporter;
+
+@property (nonatomic, strong) BUGImageEditor *imageEditor;
 
 @end
 
@@ -39,6 +42,7 @@
     if (self) {
         _account = [[BUGAccount alloc] init];
         _reporter = [[BUGReporter alloc] init];
+        _imageEditor = [[BUGImageEditor alloc] init];
     }
     return self;
 }
