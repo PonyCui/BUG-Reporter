@@ -180,6 +180,7 @@
                  if ([JSONObject isKindOfClass:[NSDictionary class]] &&
                      [JSONObject[@"tid"] isKindOfClass:[NSString class]]) {
                      NSString *tid = JSONObject[@"tid"];
+                     [self sendEnvParamsWithIssueID:tid andPid:pid];
                      [self updateImagesWithIssueID:tid andPid:pid issueImages:issueImages];
                  }
              }
@@ -193,6 +194,25 @@
              }
          }
      }];
+}
+
+- (void)sendEnvParamsWithIssueID:(NSString *)issueID andPid:(NSString *)pid {
+    NSString *URLString = [NSString stringWithFormat:@"https://api.worktile.com/v1/tasks/%@/comment?pid=%@",
+                           issueID,
+                           pid];
+    NSMutableURLRequest *request = [NSMutableURLRequest
+                                    requestWithURL:[NSURL URLWithString:URLString]];
+    [request setHTTPMethod:@"POST"];
+    [request setValue:self.accessToken forHTTPHeaderField:@"access_token"];
+    NSMutableString *messageString = [NSMutableString string];
+    [[[[BUGCore sharedCore] envManager] allEnvParams] enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        [messageString appendFormat:@"%@ : %@\n", key, obj];
+    }];
+    NSString *bodyString = [NSString stringWithFormat:@"message=%@", [messageString copy]];
+    [request setHTTPBody:[bodyString dataUsingEncoding:NSUTF8StringEncoding]];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
+        
+    }];
 }
 
 - (void)updateImagesWithIssueID:(NSString *)issueID andPid:(NSString *)pid issueImages:(nullable NSArray<NSData *> *)issueImages {

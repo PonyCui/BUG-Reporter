@@ -18,6 +18,7 @@
 		63E108471BA92084001FBE57 /* BUGAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108461BA92084001FBE57 /* BUGAccount.m */; settings = {ASSET_TAGS = (); }; };
 		63E1084A1BA92B08001FBE57 /* BUGReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108491BA92B08001FBE57 /* BUGReporter.m */; settings = {ASSET_TAGS = (); }; };
 		63E1084D1BA96C6E001FBE57 /* BUGImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */; settings = {ASSET_TAGS = (); }; };
+		F003A9761BA9C85A0069489D /* BUGEnvManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F003A9751BA9C85A0069489D /* BUGEnvManager.m */; settings = {ASSET_TAGS = (); }; };
 		F0957FB81BA9B1F800F42737 /* BUGImagePainterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0957FB71BA9B1F800F42737 /* BUGImagePainterView.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,8 @@
 		63E108491BA92B08001FBE57 /* BUGReporter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGReporter.m; sourceTree = "<group>"; };
 		63E1084B1BA96C6E001FBE57 /* BUGImageEditor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUGImageEditor.h; sourceTree = "<group>"; };
 		63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGImageEditor.m; sourceTree = "<group>"; };
+		F003A9741BA9C85A0069489D /* BUGEnvManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUGEnvManager.h; sourceTree = "<group>"; };
+		F003A9751BA9C85A0069489D /* BUGEnvManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGEnvManager.m; sourceTree = "<group>"; };
 		F0957FB61BA9B1F800F42737 /* BUGImagePainterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BUGImagePainterView.h; sourceTree = "<group>"; };
 		F0957FB71BA9B1F800F42737 /* BUGImagePainterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BUGImagePainterView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,6 +135,8 @@
 			children = (
 				63E108421BA91EC0001FBE57 /* BUGCore.h */,
 				63E108431BA91EC0001FBE57 /* BUGCore.m */,
+				F003A9741BA9C85A0069489D /* BUGEnvManager.h */,
+				F003A9751BA9C85A0069489D /* BUGEnvManager.m */,
 				63E108451BA92084001FBE57 /* BUGAccount.h */,
 				63E108461BA92084001FBE57 /* BUGAccount.m */,
 				63E108481BA92B08001FBE57 /* BUGReporter.h */,
@@ -245,6 +250,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F003A9761BA9C85A0069489D /* BUGEnvManager.m in Sources */,
 				63E1084D1BA96C6E001FBE57 /* BUGImageEditor.m in Sources */,
 				63E108241BA91E7C001FBE57 /* ViewController.m in Sources */,
 				63E108471BA92084001FBE57 /* BUGAccount.m in Sources */,

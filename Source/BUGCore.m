@@ -7,9 +7,6 @@
 //
 
 #import "BUGCore.h"
-#import "BUGAccount.h"
-#import "BUGReporter.h"
-#import "BUGImageEditor.h"
 
 @interface BUGCore ()
 
@@ -18,6 +15,8 @@
 @property (nonatomic, strong) BUGReporter *reporter;
 
 @property (nonatomic, strong) BUGImageEditor *imageEditor;
+
+@property (nonatomic, strong) BUGEnvManager *envManager;
 
 @end
 
@@ -43,6 +42,7 @@
         _account = [[BUGAccount alloc] init];
         _reporter = [[BUGReporter alloc] init];
         _imageEditor = [[BUGImageEditor alloc] init];
+        _envManager = [[BUGEnvManager alloc] init];
     }
     return self;
 }

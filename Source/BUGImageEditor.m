@@ -11,6 +11,7 @@
 
 @protocol BUGImageCollectionViewCellDelegate <NSObject>
 
+- (void)cellDidDeleteImageWithCellIndex:(NSUInteger)cellIndex;
 - (void)cellDidEditedImage:(UIImage *)image cellIndex:(NSUInteger)cellIndex;
 
 @end
@@ -115,6 +116,16 @@
     }
 }
 
+- (void)cellDidDeleteImageWithCellIndex:(NSUInteger)cellIndex {
+    if (cellIndex < [self.images count]) {
+        NSMutableArray *images = [self.images mutableCopy];
+        [images removeObjectAtIndex:cellIndex];
+        self.images = images;
+        [self.editorCollectionView reloadData];
+        [self.delegate imageEditorDidChangedImages:self.images];
+    }
+}
+
 #pragma mark - Getter
 
 - (UIViewController *)editorViewController {
@@ -172,6 +183,10 @@
         [self addSubview:self.toolBar];
     }
     return self;
+}
+
+- (void)handleDeleteButtonTapped {
+    [self.delegate cellDidDeleteImageWithCellIndex:self.tag];
 }
 
 - (void)handleEditButtonTapped {
@@ -238,10 +253,10 @@
 
 - (NSArray *)toolBarNormalItems {
     if (_toolBarNormalItems == nil) {
-        UIBarButtonItem *leftSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+        UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc] initWithTitle:@"删除" style:UIBarButtonItemStylePlain target:self action:@selector(handleDeleteButtonTapped)];
+        UIBarButtonItem *middleSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
         UIBarButtonItem *editItem = [[UIBarButtonItem alloc] initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(handleEditButtonTapped)];
-        UIBarButtonItem *rightSpaceItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        _toolBarNormalItems = @[leftSpaceItem, editItem, rightSpaceItem];
+        _toolBarNormalItems = @[deleteItem, middleSpaceItem, editItem];
     }
     return _toolBarNormalItems;
 }
