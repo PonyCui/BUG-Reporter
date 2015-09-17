@@ -37,7 +37,7 @@
     CGFloat ratio = image.size.width / CGRectGetWidth(self.frame);
     UIBezierPath *bezierPath = [self.bezierPath copy];
     [bezierPath applyTransform:CGAffineTransformMakeScale(ratio, ratio)];
-    [bezierPath setLineWidth:4.0f * [UIScreen mainScreen].scale];
+    [bezierPath setLineWidth:4.0f * ratio];
     [[UIColor redColor] setStroke];
     [bezierPath stroke];
     UIImage *finalImage = UIGraphicsGetImageFromCurrentImageContext();

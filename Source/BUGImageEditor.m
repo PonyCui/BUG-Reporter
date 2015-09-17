@@ -230,14 +230,8 @@
 }
 
 - (CGRect)imageRectWithSize:(CGSize)size {
-    if (size.width > size.height) {
-        CGRect rect = CGRectZero;
-        rect.size.height = CGRectGetWidth(self.imageView.bounds) * size.height / size.width;
-        rect.origin.y = (CGRectGetHeight(self.imageView.bounds) - rect.size.height) / 2.0;
-        rect.size.width = CGRectGetWidth(self.imageView.bounds);
-        return rect;
-    }
-    else if (size.width < size.height) {
+    if (size.height > size.width &&
+        size.height / size.width > CGRectGetHeight(self.imageView.bounds) / CGRectGetWidth(self.imageView.bounds)) {
         CGRect rect = CGRectZero;
         rect.size.width = CGRectGetHeight(self.imageView.bounds) * size.width / size.height;
         rect.origin.x = (CGRectGetWidth(self.imageView.bounds) - rect.size.width) / 2.0;
@@ -245,7 +239,11 @@
         return rect;
     }
     else {
-        return self.imageView.bounds;
+        CGRect rect = CGRectZero;
+        rect.size.height = CGRectGetWidth(self.imageView.bounds) * size.height / size.width;
+        rect.origin.y = (CGRectGetHeight(self.imageView.bounds) - rect.size.height) / 2.0;
+        rect.size.width = CGRectGetWidth(self.imageView.bounds);
+        return rect;
     }
 }
 
