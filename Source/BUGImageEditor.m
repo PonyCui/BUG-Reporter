@@ -11,6 +11,8 @@
 
 @protocol BUGImageCollectionViewCellDelegate <NSObject>
 
+- (void)cellDidEnteredImageEditingMode;
+- (void)cellDidExitedImageEditingMode;
 - (void)cellDidDeleteImageWithCellIndex:(NSUInteger)cellIndex;
 - (void)cellDidEditedImage:(UIImage *)image cellIndex:(NSUInteger)cellIndex;
 
@@ -126,6 +128,18 @@
     }
 }
 
+- (void)cellDidEnteredImageEditingMode {
+    self.editorCollectionView.scrollEnabled = NO;
+    self.editorViewController.navigationItem.rightBarButtonItem.enabled = NO;
+    self.editorViewController.navigationItem.hidesBackButton = YES;
+}
+
+- (void)cellDidExitedImageEditingMode {
+    self.editorCollectionView.scrollEnabled = YES;
+    self.editorViewController.navigationItem.rightBarButtonItem.enabled = YES;
+    self.editorViewController.navigationItem.hidesBackButton = NO;
+}
+
 #pragma mark - Getter
 
 - (UIViewController *)editorViewController {
@@ -192,12 +206,14 @@
 - (void)handleEditButtonTapped {
     [self.imageView addSubview:self.painterView];
     self.toolBar.items = self.toolBarEditItems;
+    [self.delegate cellDidEnteredImageEditingMode];
 }
 
 - (void)handleCancelButtonTapped {
     [self.painterView reset];
     [self.painterView removeFromSuperview];
     self.toolBar.items = self.toolBarNormalItems;
+    [self.delegate cellDidExitedImageEditingMode];
 }
 
 - (void)handleSaveButtonTapped {
@@ -206,6 +222,7 @@
     [self.painterView reset];
     [self.painterView removeFromSuperview];
     self.toolBar.items = self.toolBarNormalItems;
+    [self.delegate cellDidExitedImageEditingMode];
 }
 
 - (void)updatePainterViewWithImageSize:(CGSize)imageSize {
