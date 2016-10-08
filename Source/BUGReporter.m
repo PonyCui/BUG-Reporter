@@ -45,6 +45,8 @@
 
 @implementation BUGReporter
 
+static UIWindow *window;
+
 - (instancetype)init
 {
     self = [super init];
@@ -66,9 +68,11 @@
 }
 
 - (void)showReporterViewController {
-    if ([self.reporterViewController parentViewController] != nil) {
-        return;
-    }
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        window.windowLevel = UIWindowLevelNormal + 1;
+    });
     if (self.lastScreenShot != nil) {
         NSData *lastScreenShotData = UIImageJPEGRepresentation(self.lastScreenShot, 0.8);
         if (lastScreenShotData != nil) {
@@ -87,10 +91,8 @@
     UINavigationController *navigationController =
     [[UINavigationController alloc] initWithRootViewController:self.reporterViewController];
     navigationController.navigationBar.translucent = NO;
-    [[[[UIApplication sharedApplication] keyWindow] rootViewController]
-     presentViewController:navigationController animated:YES completion:^{
-         
-     }];
+    window.rootViewController = navigationController;
+    window.hidden = NO;
 }
 
 #pragma mark - UITableViewDataSource, UITableViewDelegate
@@ -306,7 +308,7 @@
 }
 
 - (void)handleCloseButtonTapped {
-    [self.reporterViewController dismissViewControllerAnimated:YES completion:nil];
+    window.hidden = YES;
 }
 
 - (UIBarButtonItem *)sendButtonItem {
@@ -325,13 +327,14 @@
      composeWithPid:self.pid
      entryId:self.entryid
      issueTitle:self.issueTitle
-    issueImages:self.issueImages
+     issueImages:self.issueImages
      completionBlock:^{
-        [self.reporterViewController dismissViewControllerAnimated:YES completion:nil];
-    } failureBlock:^{
-        self.sendButtonItem.enabled = YES;
-        NSLog(@"发送失败");
-    }];
+         window.hidden = YES;
+     } failureBlock:^{
+         window.hidden = YES;
+         self.sendButtonItem.enabled = YES;
+         NSLog(@"发送失败");
+     }];
 }
 
 - (UITableView *)reporterTableView {
