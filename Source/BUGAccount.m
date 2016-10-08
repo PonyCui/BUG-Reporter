@@ -217,7 +217,7 @@
 
 - (void)updateImagesWithIssueID:(NSString *)issueID andPid:(NSString *)pid issueImages:(nullable NSArray<NSData *> *)issueImages {
     [issueImages enumerateObjectsUsingBlock:^(NSData * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"https://bugreporter.sinaapp.com/"]];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://1.bugreporter.applinzi.com/"]];
         [request setHTTPMethod:@"POST"];
         [request setHTTPBody:obj];
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse * _Nullable response, NSData * _Nullable data, NSError * _Nullable connectionError) {
