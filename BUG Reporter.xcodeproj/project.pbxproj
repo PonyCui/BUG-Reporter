@@ -14,12 +14,12 @@
 		63E108291BA91E7C001FBE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63E108281BA91E7C001FBE57 /* Assets.xcassets */; };
 		63E1082C1BA91E7C001FBE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63E1082A1BA91E7C001FBE57 /* LaunchScreen.storyboard */; };
 		63E108371BA91E7C001FBE57 /* BUG_ReporterUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108361BA91E7C001FBE57 /* BUG_ReporterUITests.m */; };
-		63E108441BA91EC0001FBE57 /* BUGCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108431BA91EC0001FBE57 /* BUGCore.m */; settings = {ASSET_TAGS = (); }; };
-		63E108471BA92084001FBE57 /* BUGAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108461BA92084001FBE57 /* BUGAccount.m */; settings = {ASSET_TAGS = (); }; };
-		63E1084A1BA92B08001FBE57 /* BUGReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108491BA92B08001FBE57 /* BUGReporter.m */; settings = {ASSET_TAGS = (); }; };
-		63E1084D1BA96C6E001FBE57 /* BUGImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */; settings = {ASSET_TAGS = (); }; };
-		F003A9761BA9C85A0069489D /* BUGEnvManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F003A9751BA9C85A0069489D /* BUGEnvManager.m */; settings = {ASSET_TAGS = (); }; };
-		F0957FB81BA9B1F800F42737 /* BUGImagePainterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0957FB71BA9B1F800F42737 /* BUGImagePainterView.m */; settings = {ASSET_TAGS = (); }; };
+		63E108441BA91EC0001FBE57 /* BUGCore.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108431BA91EC0001FBE57 /* BUGCore.m */; };
+		63E108471BA92084001FBE57 /* BUGAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108461BA92084001FBE57 /* BUGAccount.m */; };
+		63E1084A1BA92B08001FBE57 /* BUGReporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E108491BA92B08001FBE57 /* BUGReporter.m */; };
+		63E1084D1BA96C6E001FBE57 /* BUGImageEditor.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E1084C1BA96C6E001FBE57 /* BUGImageEditor.m */; };
+		F003A9761BA9C85A0069489D /* BUGEnvManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F003A9751BA9C85A0069489D /* BUGEnvManager.m */; };
+		F0957FB81BA9B1F800F42737 /* BUGImagePainterView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0957FB71BA9B1F800F42737 /* BUGImagePainterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -199,6 +199,7 @@
 				TargetAttributes = {
 					63E108181BA91E7C001FBE57 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = 8M2FQ87SLP;
 					};
 					63E108311BA91E7C001FBE57 = {
 						CreatedOnToolsVersion = 7.0;
@@ -384,6 +385,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8M2FQ87SLP;
 				INFOPLIST_FILE = "BUG Reporter/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -396,6 +398,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8M2FQ87SLP;
 				INFOPLIST_FILE = "BUG Reporter/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

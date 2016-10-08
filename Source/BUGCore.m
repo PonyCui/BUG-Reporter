@@ -53,16 +53,15 @@
             [self installGesture];
             return ;
         }
-        UIScreenEdgePanGestureRecognizer *gesture = [[UIScreenEdgePanGestureRecognizer alloc]
-                                                     initWithTarget:self
-                                                     action:@selector(handleScreenGestureTrigger:)];
-        gesture.edges = UIRectEdgeRight;
-        gesture.minimumNumberOfTouches = 1;
+        UILongPressGestureRecognizer *gesture = [[UILongPressGestureRecognizer alloc]
+                                                 initWithTarget:self
+                                                 action:@selector(handleLongPressGesture:)];
+        gesture.numberOfTouchesRequired = 3;
         [[[UIApplication sharedApplication] keyWindow] addGestureRecognizer:gesture];
     });
 }
 
-- (void)handleScreenGestureTrigger:(UIScreenEdgePanGestureRecognizer *)sender {
+- (void)handleLongPressGesture:(UILongPressGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateBegan) {
         if (!self.account.isAuthorized) {
             [self.account showAuthorizeWebView];
